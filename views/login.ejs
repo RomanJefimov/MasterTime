@@ -1,0 +1,36 @@
+<%- include('partials/header', { title: 'Enter' }) %>
+
+<div class="row justify-content-center">
+  <div class="col-sm-10 col-md-6 col-lg-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="h4 mb-3">Enter</h1>
+        <form action="/login" method="post">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email"  required />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="•••" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<% if (showError) { %>
+<script>
+  // Всплывающее сообщение при неверном пароле/почте
+  alert('Incorrect email or password. Please try again.');
+  // Фокус на поле пароля для повторного ввода
+  document.addEventListener('DOMContentLoaded', () => {
+    const pwd = document.getElementById('password');
+    if (pwd) pwd.focus();
+  });
+</script>
+<% } %>
+
+<%- include('partials/footer') %>

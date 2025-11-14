@@ -1,0 +1,141 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "MasterTime API",
+        "version": "1.0.0",
+        "description": "REST API for products and session-based auth (login/logout)."
+    },
+    "servers": [
+        { "url": "http://localhost:3000", "description": "Local" }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "summary": "Login (sets session cookie)",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": { "type": "string", "example": "admin@myshop.local" },
+                                    "password": { "type": "string", "example": "123" }
+                                },
+                                "required": ["email", "password"]
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": { "type": "string", "example": "admin@myshop.local" },
+                                    "password":{ "type": "string", "example": "123"}
+                                },
+                                "required":["email", "password"]
+                            }
+                        }
+                    }
+                },
+                "response": {
+                    "302": { "description": "Redirected on success" },
+                    "200": { "description": "May return HTML if used via browser" }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "summary": "Logout (clears session cookie)",
+                "responses": { "302": { "description": "Redirect to home" } }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "summary": "List products",
+                "responses": {
+                    "200": {
+                        "description": "Array of products",
+                        "content": {
+                            "application/json": {
+                                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Product" } }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create product (admin only)",
+                "security": [{ "cookieAuth": [] }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/ProductInput" }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Product" } } } },
+                    "403": { "description": "Forbidden" }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "summary": "Get a product",
+                "parameters": [ { "in": "path", "name": "id", "required": true, "schema": { "type": "integer" } } ],
+                "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Product" } } } }, "404": { "description": "Not found" } }
+            },
+            "put": {
+                "summary": "Update product (admin only)",
+                "security": [{ "cookieAuth": [] }],
+                "parameters": [ { "in": "path", "name": "id", "required": true, "schema": { "type": "integer" } } ],
+                "requestBody": {
+                    "required": true,
+                    "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductInput" } } }
+                },
+                "responses": { "200": { "description": "OK" }, "403": { "description": "Forbidden" }, "404": { "description": "Not found" } }
+            },
+            "delete": {
+                "summary": "Delete product (admin only)",
+                "security": [{ "cookieAuth": [] }],
+                "parameters": [ { "in": "path", "name":"id", "required": true, "schema": { "type": "integer" } } ],
+                "responses": { "200": { "description": "Deleted" }, "403": { "description": "Forbidden" }, "404": { "description": "Not found" } }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "cookieAuth": {
+                "type": "apiKey",
+                "in": "cookie",
+                "name": "connect.sid",
+                "description": "Session cookie after /login."
+            }
+        },
+        "schemas": {
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "integer" },
+                    "name": {  "type": "string" },
+                    "desc": { "type": "string" },
+                    "price": { "type": "number", "format": "float" },
+                    "pic": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                }
+            },
+            "ProductInput": {
+                "type": "object",
+                "required": ["name", "desc", "price"],
+                "properties": {
+                    "name": { "type": "string", "example": "Demo Product" },
+                    "desc": { "type": "string", "example": "Sample description" },
+                    "price": { "type": "number", "example": 10.99 },
+                    "pic": { "type": "string", "example": "/img/pic.png", "description": "Image URL or app-relative path. Defaults to /img/pic.png" }
+                }
+            }
+        }
+    }
+}

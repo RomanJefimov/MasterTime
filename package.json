@@ -1,0 +1,23 @@
+{
+    "name": "mastertime",
+    "version": "1.0.0",
+    "description": "Simple MasterTime app with Express, Sequelize, MySQL, sessions, auth, CRUD, and REST API",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.4.5",
+        "ejs": "3.1.10",
+        "express": "^4.21.1",
+        "express-session": "^1.18.1",
+        "mysql2": "^3.11.3",
+        "sequelize": "6.37.3",
+        "swagger-ui-express": "5.0.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.7"
+    }
+}
