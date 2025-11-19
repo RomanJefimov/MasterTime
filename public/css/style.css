@@ -1,5 +1,5 @@
 /* Небольшие стили для карточек и адаптивности */
-body { background: #f6f7fb; }
+body { background: #d3d3d3; }
 .card { border: none; }
 .object-fit-cover { object-fit: cover; }
 

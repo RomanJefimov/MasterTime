@@ -23,11 +23,11 @@
     <div class="col-12">
       <label class="form-label" for="pic">Picture URL or path</label>
       <!-- Текстовое поле для адреса картинки. По умолчанию /img/pic.png -->
-      <input class="form-control" id="pic" name="pic" placeholder="https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg or https://..." value="<%= product ? product.pic : 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg' %>" />
+      <input class="form-control" id="pic" name="pic" placeholder="/img/pic.jpg or https://..." value="<%= product ? product.pic : '/img/pic.jpg' %>" />
       <div class="form-text">Stored as address in DB. Use absolute URL or app-relative path.</div>
       <!-- Превью картинки для удобства администратора -->
       <div class="d-flex align-items-center gap-3 mt-2">
-        <img id="picPreview" src="<%= product ? product.pic : 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg' %>" width="80" height="80" class="rounded object-fit-cover border" alt="pic" />
+        <img id="picPreview" src="<%= product ? product.pic : '/img/pic.jpg' %>" width="80" height="80" class="rounded object-fit-cover border" alt="pic" />
         <span class="text-muted small">Preview</span>
       </div>
     </div>
@@ -43,7 +43,7 @@
   const picPreview = document.getElementById('picPreview');
   if (picInput && picPreview) {
     picInput.addEventListener('input', () => {
-      const v = picInput.value && picInput.value.trim() ? picInput.value.trim() : 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg';
+      const v = picInput.value && picInput.value.trim() ? picInput.value.trim() : '/img/pic.jpg';
       picPreview.src = v;
     });
   }

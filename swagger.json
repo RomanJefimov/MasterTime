@@ -119,6 +119,7 @@
                 "properties": {
                     "id": { "type": "integer" },
                     "name": {  "type": "string" },
+                    "brand": { "type": "string" },
                     "desc": { "type": "string" },
                     "price": { "type": "number", "format": "float" },
                     "pic": { "type": "string" },
@@ -131,9 +132,10 @@
                 "required": ["name", "desc", "price"],
                 "properties": {
                     "name": { "type": "string", "example": "Demo Product" },
+                    "brand": { "type": "string", "example": "Demo brand" },
                     "desc": { "type": "string", "example": "Sample description" },
                     "price": { "type": "number", "example": 10.99 },
-                    "pic": { "type": "string", "example": "/img/pic.png", "description": "Image URL or app-relative path. Defaults to /img/pic.png" }
+                    "pic": { "type": "string", "example": "/img/pic.jpg", "description": "Image URL or app-relative path. Defaults to /img/pic.jpg" }
                 }
             }
         }

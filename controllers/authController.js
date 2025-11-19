@@ -33,7 +33,7 @@ async function postLogin(req, res) {
     res.redirect('/');
 }
 
-// POST /loqout - выход
+// POST /logout - выход
 async function postLogout(req, res) {
     req.session.destroy(() => {
         res.redirect('/');

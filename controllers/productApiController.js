@@ -22,7 +22,7 @@ async function create(req, res) {
     const { Product } = getModels();
     const { name, brand, desc, price } = req.body;
     let { pic } = req.body;
-    if (!pic || !pic.trim()) pic = 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg';
+    if (!pic || !pic.trim()) pic = '/img/pic.jpg';
     const created = await Product.create({ name, brand, desc, price, pic });
     res.status(201).json(created);
 }
@@ -34,7 +34,7 @@ async function update(req, res) {
     if (!item) return res.status(404).json({ error: 'Not found' });
     const { name, brand, desc, price } = req.body;
     let { pic } = req.body;
-    if (!pic || !pic.trim()) pic = 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg';
+    if (!pic || !pic.trim()) pic = '/img/pic.jpg';
     await item.update({ name, brand, desc, price, pic });
     res.json(item);
 }

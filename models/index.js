@@ -25,7 +25,7 @@ User = defineUser(sequelize);
     if (productsCount < 6) {
         const needed = 6 - productsCount;
         const baseDesc = 'Sample product description for demo purposes.';
-        const pic = 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg';
+        const pic = '/img/pic.jpg';
         const existing = await Product.findAll({ attributes: ['name'] });
         const existingNames = new Set(existing.map((p) => p.name));
 

@@ -20,7 +20,7 @@ async function create(req,res) {
     //Принимаем адрес картинки из формы по умолчанию используем тестовую
     const { name,  brand, desc, price } = req.body;
     let { pic } = req.body;
-    if (!pic || !pic.trim()) pic = 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg';
+    if (!pic || !pic.trim()) pic = '/img/pic.jpg';
     await Product.create({ name, brand, desc, price, pic });
     res.redirect('/');
 }
@@ -38,7 +38,7 @@ async function update(req, res) {
     const { Product } = getModels();
     const { name, brand, desc, price } = req.body;
     let { pic } = req.body;
-    if (!pic || !pic.trim()) pic = 'https://yshio.ru/upload/medialibrary/ba0/cczr2vqn0y2sdcaacvqph2pcga7r8ki3.jpg';
+    if (!pic || !pic.trim()) pic = '/img/pic.jpg';
     const product = await Product.findByPk(req.params.id);
     if (!product) return res.status(404).send('Not found');
     await product.update({ name, brand, desc, price, pic });
